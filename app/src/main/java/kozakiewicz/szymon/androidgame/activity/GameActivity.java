@@ -1,8 +1,10 @@
-package kozakiewicz.szymon.androidgame;
+package kozakiewicz.szymon.androidgame.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import kozakiewicz.szymon.androidgame.R;
 
 public class GameActivity extends AppCompatActivity {
 

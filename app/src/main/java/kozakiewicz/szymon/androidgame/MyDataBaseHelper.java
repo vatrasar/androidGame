@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-class MyDataBaseHelper extends SQLiteOpenHelper
+public class MyDataBaseHelper extends SQLiteOpenHelper
 {
     public final static String LOG_TAG="DB log";
     public final static String DB_NAME="GameDB";
@@ -28,7 +28,7 @@ class MyDataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        Toast.makeText(context,"tworzenie bazy",Toast.LENGTH_LONG).show();
+//        Toast.makeText(context,"tworzenie bazy",Toast.LENGTH_LONG).show();
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(" +
                 _ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 NICKNAME+" TEXT NOT NULL, " +
