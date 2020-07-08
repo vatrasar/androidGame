@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.GameActivity">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <kozakiewicz.szymon.androidgame.MyCanvas
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </kozakiewicz.szymon.androidgame.MyCanvas>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

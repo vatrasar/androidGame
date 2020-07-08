@@ -22,6 +22,7 @@
             android:id="@+id/btnPlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onPlay"
             android:text="Play" />
 
         <TextView
@@ -36,6 +37,7 @@
             android:id="@+id/btnGameParam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onParameters"
             android:text="game parameters" />
 
         <Button

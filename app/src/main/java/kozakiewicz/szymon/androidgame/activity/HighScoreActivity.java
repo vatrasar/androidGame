@@ -13,14 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.sql.Blob;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import kozakiewicz.szymon.androidgame.R;
+import kozakiewicz.szymon.androidgame.Score;
 
 public class HighScoreActivity extends AppCompatActivity {
     private ArrayAdapter<Score> adapter ;
@@ -38,53 +36,6 @@ public class HighScoreActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-    }
-}
-
-class Score
-{
-    String nickname;
-    int score;
-    Date dateTime;
-    Blob blob;
-
-    public Score(String nickname, int score, Date dateTime, Blob blob) {
-        this.nickname = nickname;
-        this.score = score;
-        this.dateTime = dateTime;
-        this.blob = blob;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public Blob getBlob() {
-        return blob;
-    }
-
-    public void setBlob(Blob blob) {
-        this.blob = blob;
     }
 }
 
