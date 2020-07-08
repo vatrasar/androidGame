@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import kozakiewicz.szymon.androidgame.Data;
 import kozakiewicz.szymon.androidgame.MyDataBaseHelper;
 import kozakiewicz.szymon.androidgame.R;
@@ -18,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
 
     MyDataBaseHelper databaseHelper;
     SQLiteDatabase database;
+    Data settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +50,16 @@ public class HomeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Bundle result=data.getExtras();
         TextView textInfo=(TextView) findViewById(R.id.txtInfo);
-        Data score=(Data) result.getSerializable("data");
-        textInfo.setText(score.getNickname());
+        settings=(Data) result.getSerializable("data");
+        textInfo.setText(settings.getNickname());
     }
 
 
     public void onPlay(View view) {
         Intent intent=new Intent(this,GameActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("settings",settings);
+        intent.putExtras(bundle);
         startActivity(intent);
 
 
