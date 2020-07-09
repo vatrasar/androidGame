@@ -10,6 +10,12 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import kozakiewicz.szymon.androidgame.objects.ObjectOnScreen;
+
 
 public class MyCanvas extends View {
 
@@ -17,6 +23,10 @@ public class MyCanvas extends View {
     String nickname;
     int highScore;
     int currentScore;
+    ObjectOnScreen hunter;
+    ObjectOnScreen target;
+    List<ObjectOnScreen> results;
+
 
 
 //    public MyCanvas(Context context) {
@@ -29,20 +39,33 @@ public class MyCanvas extends View {
         nickname="name";
         highScore=0;
         currentScore=0;
+        hunter=null;
+        target=null;
+        results=new ArrayList<>();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        //settings
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawPaint(paint);
-
         paint.setColor(Color.BLACK);
         paint.setTextSize(20);
+
+        //set stats
         canvas.drawText(nickname, 10, 20, paint);
         canvas.drawText(highScore+"", 10, 80, paint);
         canvas.drawText(currentScore+"", 10, 160, paint);
+
+        //show objects
+        if (hunter==null)
+            return;
+        canvas.drawBitmap(hunter.image,hunter.x,hunter.y,paint);
+        canvas.drawBitmap(target.image,target.x,target.y,paint);
+
     }
 
     public Paint getPaint() {
@@ -61,6 +84,30 @@ public class MyCanvas extends View {
     public void setNickname(String nickname) {
         this.nickname = nickname;
         this.invalidate();
+    }
+
+    public ObjectOnScreen getHunter() {
+        return hunter;
+    }
+
+    public void setHunter(ObjectOnScreen hunter) {
+        this.hunter = hunter;
+    }
+
+    public ObjectOnScreen getTarget() {
+        return target;
+    }
+
+    public void setTarget(ObjectOnScreen target) {
+        this.target = target;
+    }
+
+    public List<ObjectOnScreen> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ObjectOnScreen> results) {
+        this.results = results;
     }
 
     public int getHighScore() {
