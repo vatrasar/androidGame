@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.GameParametrActivity"></activity>
-        <activity android:name=".activity.GameActivity" />
+        <activity android:name=".activity.GameActivity" android:screenOrientation="portrait" />
         <activity android:name=".activity.HighScoreActivity" />
         <activity android:name=".activity.HomeActivity">
             <intent-filter>

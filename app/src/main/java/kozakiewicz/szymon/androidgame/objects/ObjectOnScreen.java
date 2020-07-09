@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class ObjectOnScreen {
 
-   public int x,y;
+   public float x,y;
    public Bitmap image;
    public ObjectType objectType;
 
@@ -19,19 +19,19 @@ public class ObjectOnScreen {
 
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -49,5 +49,11 @@ public class ObjectOnScreen {
 
     public void setObjectType(ObjectType objectType) {
         this.objectType = objectType;
+    }
+
+
+    public void push(float x_push, float y_push) {
+        x=x+x_push;
+        y=y+y_push;
     }
 }

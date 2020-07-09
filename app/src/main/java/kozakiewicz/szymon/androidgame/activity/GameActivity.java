@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.WindowManager;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +24,9 @@ import kozakiewicz.szymon.androidgame.R;
 import kozakiewicz.szymon.androidgame.objects.ObjectOnScreen;
 import kozakiewicz.szymon.androidgame.objects.ObjectType;
 
-public class GameActivity extends AppCompatActivity {
+import static android.hardware.Sensor.TYPE_ACCELEROMETER;
+
+public class GameActivity extends AppCompatActivity implements SensorEventListener {
 
     Data settings;
     ObjectOnScreen hunter;
@@ -29,12 +36,15 @@ public class GameActivity extends AppCompatActivity {
     MyCanvas myCanvas;
     int imageHeight;
     int imageWidth;
+    Sensor accelerometer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
         Bundle bundle=this.getIntent().getExtras();
         settings=(Data)bundle.getSerializable("settings");
@@ -44,9 +54,17 @@ public class GameActivity extends AppCompatActivity {
         random=new Random(System.currentTimeMillis());
         imageHeight=60;
         imageWidth=60;
+        registSensor();
+
         initGame();
         rePaint();
 
+    }
+
+    private void registSensor() {
+        SensorManager sm=(SensorManager) this.getSystemService(SENSOR_SERVICE);
+        accelerometer=sm.getDefaultSensor(TYPE_ACCELEROMETER);
+        sm.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void rePaint() {
@@ -71,6 +89,19 @@ public class GameActivity extends AppCompatActivity {
     {
 
         return Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),id),imageWidth,imageHeight,false);
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        float[]values=sensorEvent.values;
+        hunter.push(-values[0],values[1]);
+        rePaint();
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 }
