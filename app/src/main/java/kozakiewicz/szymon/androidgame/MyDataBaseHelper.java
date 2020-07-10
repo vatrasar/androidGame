@@ -1,9 +1,17 @@
 package kozakiewicz.szymon.androidgame;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MyDataBaseHelper extends SQLiteOpenHelper
 {
@@ -17,7 +25,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
     final static String DATE="date";
     final static String IMAGE="image";
     final static String[] columns={_ID,NICKNAME,SCORE,DATE,IMAGE};
-
+    SQLiteDatabase database;
     Context context;
 
     public MyDataBaseHelper(Context context) {
@@ -40,9 +48,43 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+
     }
     public void deleteDatabase()
     {
         context.deleteDatabase(DB_NAME);
     }
+
+    public void insertScore(Data settings, int score,Bitmap bitmap)
+    {
+        database=getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put(NICKNAME,settings.nickname);
+        cv.put(SCORE,score);
+        cv.put(IMAGE,getBitmapAsByteArray(bitmap));
+        cv.put(DATE, getDateTime(Calendar.getInstance().getTime()));
+        database.insert(TABLE_NAME,null,cv);
+        database.close();
+    }
+
+    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        return outputStream.toByteArray();
+    }
+
+    private String getDateTime(Date date) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+
+
+        return dateFormat.format(date);
+
+    }
+
+
+
 }

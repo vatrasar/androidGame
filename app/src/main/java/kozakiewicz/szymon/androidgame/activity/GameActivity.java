@@ -3,6 +3,8 @@ package kozakiewicz.szymon.androidgame.activity;
 import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -15,6 +17,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +43,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     int imageWidth;
     Sensor accelerometer;
     int score;
+    ObjectOnScreen lastHitedResult;
+    Date lastHitTime=Calendar.getInstance().getTime();
 
 
     @Override
@@ -123,10 +128,32 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             int height = size.y;
 
             target.setImage(resizeImage(R.drawable.blood));
+            target.setObjectType(ObjectType.Result);
             results.add(target);
+            lastHitedResult=target;
+            lastHitTime=Calendar.getInstance().getTime();
             target=new ObjectOnScreen(random,width,height,resizeImage(R.drawable.kotek), ObjectType.TARGET,imageWidth,imageHeight);
             score++;
             myCanvas.setCurrentScore(score);
+
+        }
+
+        for(ObjectOnScreen result:results)
+        {
+            if(isColision(result,hunter))
+            {
+
+
+                if(result!=lastHitedResult || (lastHitTime.getTime()+3000L<Calendar.getInstance().getTimeInMillis()))
+                {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("score",score);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
+                }
+
+
+            }
         }
     }
 

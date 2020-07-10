@@ -9,18 +9,18 @@ public class Data implements Serializable {
     String nickname;
     int score;
     Date dateTime;
-    String targetName;
-    String hunterName;
-    String result;
+    int targetNameId;
+    int hunterNameId;
+    int resultId;
     String sound;
 
-    public Data(String nickname, int score, Date dateTime, String targetName, String hunterName, String result, String sound) {
+    public Data(String nickname, int score, Date dateTime, int targetName, int hunterName, int result, String sound) {
         this.nickname = nickname;
         this.score = score;
         this.dateTime = dateTime;
-        this.targetName = targetName;
-        this.hunterName = hunterName;
-        this.result = result;
+        this.targetNameId = targetName;
+        this.hunterNameId = hunterName;
+        this.resultId = result;
         this.sound = sound;
     }
 
@@ -48,28 +48,33 @@ public class Data implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public String getTargetName() {
-        return targetName;
+    public int getTargetName() {
+        return targetNameId;
     }
 
-    public void setTargetName(String targetName) {
-        this.targetName = targetName;
+    public void setTargetName(int targetName) {
+        this.targetNameId = targetName;
     }
 
-    public String getHunterName() {
-        return hunterName;
+    public int getHunterName() {
+        return hunterNameId;
     }
 
-    public void setHunterName(String hunterName) {
-        this.hunterName = hunterName;
+    public int getHunterId()
+    {
+        return R.drawable.alicja_hunter;
     }
 
-    public String getResult() {
-        return result;
+    public void setHunterName(int hunterName) {
+        this.hunterNameId = hunterName;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public int getResult() {
+        return resultId;
+    }
+
+    public void setResult(int result) {
+        this.resultId = result;
     }
 
     public String getSound() {

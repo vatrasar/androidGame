@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -28,15 +29,25 @@ public class GameParametrActivity extends AppCompatActivity {
 
     public void onValidate(View view) {
         EditText txtNickName=(EditText) findViewById(R.id.txtNickName);
-
+        Spinner spinHunter=(Spinner) findViewById(R.id.spinHunter);
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
-        Data data = new Data(txtNickName.getText().toString(),2,Calendar.getInstance().getTime(),"","","","");
+        Data data = new Data(txtNickName.getText().toString(),2,Calendar.getInstance().getTime(),-1,resolveImageId(spinHunter.getSelectedItem().toString()),-1,"");
         bundle.putSerializable("data", data);
         returnIntent.putExtras(bundle);
 
 
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
+    }
+    public int resolveImageId(String name)
+    {
+        switch (name)
+        {
+            case "girl":
+                return R.drawable.alicja_hunter;
+
+        }
+        return -1;
     }
 }

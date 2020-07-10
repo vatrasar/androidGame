@@ -65,13 +65,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="hunter" />
+                android:text="hunter" android:entries="@array/imagesForHunter" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/spinHunter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/imagesForHunter"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <LinearLayout
