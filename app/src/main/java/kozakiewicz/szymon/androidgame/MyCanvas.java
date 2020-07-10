@@ -65,6 +65,10 @@ public class MyCanvas extends View {
             return;
         canvas.drawBitmap(hunter.image,hunter.x,hunter.y,paint);
         canvas.drawBitmap(target.image,target.x,target.y,paint);
+        for(ObjectOnScreen result:results)
+        {
+            canvas.drawBitmap(result.image,result.x,result.y,paint);
+        }
 
     }
 
