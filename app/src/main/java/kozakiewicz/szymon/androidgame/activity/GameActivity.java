@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         imageHeight=60;
         imageWidth=60;
         registSensor();
-
+        
         initGame();
         rePaint();
 

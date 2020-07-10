@@ -2,15 +2,18 @@ package kozakiewicz.szymon.androidgame;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MyDataBaseHelper extends SQLiteOpenHelper
@@ -62,9 +65,27 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
         cv.put(NICKNAME,settings.nickname);
         cv.put(SCORE,score);
         cv.put(IMAGE,getBitmapAsByteArray(bitmap));
-        cv.put(DATE, getDateTime(Calendar.getInstance().getTime()));
+        cv.put(DATE, getDateTimeString(Calendar.getInstance().getTime()));
         database.insert(TABLE_NAME,null,cv);
         database.close();
+    }
+
+    public List<Score> getResultsRows() {
+        database=getWritableDatabase();
+        List<Score>scoreList=new ArrayList<>();
+        Cursor cursor=database.rawQuery("SELECT * FROM "+TABLE_NAME,null);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        while (cursor.moveToNext())
+        {
+            try {
+                Score newScore=new Score(cursor.getString(1),cursor.getInt(2),dateFormat.parse(cursor.getString(3)),null);
+                scoreList.add(newScore);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return scoreList;
     }
 
     public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
@@ -73,11 +94,12 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
         return outputStream.toByteArray();
     }
 
-    private String getDateTime(Date date) {
+    private String getDateTimeString(Date date) {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat(
 
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
 
 
 
