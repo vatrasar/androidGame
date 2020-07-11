@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,8 +30,15 @@ public class GameParametrActivity extends AppCompatActivity {
     }
 
     public void onValidate(View view) {
+
         EditText txtNickName=(EditText) findViewById(R.id.txtNickName);
         Spinner spinHunter=(Spinner) findViewById(R.id.spinHunter);
+        if(txtNickName.getText().toString().equals(""))
+        {
+            Toast.makeText(this,"Nickname have to have at least one character",Toast.LENGTH_LONG).show();
+            return;
+
+        }
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
         Data data = new Data(txtNickName.getText().toString(),2,Calendar.getInstance().getTime(),-1,resolveImageId(spinHunter.getSelectedItem().toString()),-1,"");

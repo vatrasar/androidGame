@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
@@ -84,12 +85,23 @@ public class HomeActivity extends AppCompatActivity {
 
 
     public void onPlay(View view) {
-        Intent intent=new Intent(this,GameActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("settings",settings);
-        intent.putExtras(bundle);
-        startActivityForResult(intent,2);
+        if(settings!=null && !settings.getNickname().equals(""))
+        {
+            Intent intent=new Intent(this,GameActivity.class);
+            Bundle bundle=new Bundle();
+            bundle.putSerializable("settings",settings);
+            intent.putExtras(bundle);
+            startActivityForResult(intent,2);
+        }else
+        {
+            Toast.makeText(this,"You have to set parameters first",Toast.LENGTH_LONG).show();
+        }
 
 
+
+    }
+
+    public void onQuit(View view) {
+        finishAndRemoveTask();
     }
 }
