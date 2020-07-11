@@ -113,5 +113,10 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
     }
 
 
-
+    public int getMaxScore() {
+        database=getWritableDatabase();
+        Cursor cursor= database.rawQuery("SELECT Max("+SCORE+") FROM "+TABLE_NAME,null);
+        cursor.moveToNext();
+        return cursor.getInt(0);
+    }
 }

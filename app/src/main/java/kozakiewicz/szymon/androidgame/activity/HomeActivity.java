@@ -89,8 +89,10 @@ public class HomeActivity extends AppCompatActivity {
         {
             Intent intent=new Intent(this,GameActivity.class);
             Bundle bundle=new Bundle();
+            settings.setScore(databaseHelper.getMaxScore());
             bundle.putSerializable("settings",settings);
             intent.putExtras(bundle);
+
             startActivityForResult(intent,2);
         }else
         {
