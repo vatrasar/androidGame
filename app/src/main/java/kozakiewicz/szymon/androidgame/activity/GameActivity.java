@@ -47,6 +47,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     Date lastHitTime=Calendar.getInstance().getTime();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -60,13 +61,14 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         myCanvas.setHighScore(settings.getScore());
         myCanvas.setNickname(settings.getNickname());
         myCanvas.setResults(results);
+        myCanvas.setGameActivity(this);
         random=new Random(System.currentTimeMillis());
         imageHeight=60;
         imageWidth=60;
         registSensor();
         
-        initGame();
-        rePaint();
+//        initGame();
+//        rePaint();
 
     }
 
@@ -83,16 +85,14 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         myCanvas.invalidate();
     }
 
-    private void initGame() {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
+    public void initGame() {
+        int width = myCanvas.getWidth();
+        int height = myCanvas.getHeight();
 
         hunter=new ObjectOnScreen(random,width,height,resizeImage(R.drawable.cel), ObjectType.HUNTER,imageWidth,imageHeight);
         target=new ObjectOnScreen(random,width,height,resizeImage(R.drawable.kotek), ObjectType.TARGET,imageWidth,imageHeight);
         results=new ArrayList<>();
+        rePaint();
 
     }
     Bitmap resizeImage(int id)
@@ -104,10 +104,12 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        float[]values=sensorEvent.values;
-        hunter.push(-values[0],values[1]);
-        checkColisions();
-        rePaint();
+        if(!myCanvas.isFirstRun()) {
+            float[] values = sensorEvent.values;
+            hunter.push(-values[0], values[1],myCanvas.getWidth(),myCanvas.getHeight(),imageWidth);
+            checkColisions();
+            rePaint();
+        }
 
     }
 
@@ -121,11 +123,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
         if(isColision(target,hunter))
         {
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
-            int width = size.x;
-            int height = size.y;
+
+            int width = myCanvas.getWidth();
+            int height = myCanvas.getHeight();
 
             target.setImage(resizeImage(R.drawable.blood));
             target.setObjectType(ObjectType.Result);

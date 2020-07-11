@@ -52,8 +52,10 @@ public class ObjectOnScreen {
     }
 
 
-    public void push(float x_push, float y_push) {
-        x=x+x_push;
-        y=y+y_push;
+    public void push(float x_push, float y_push,int maxX,int maxY,int imageWidth) {
+        if(x_push+imageWidth+x<maxX && x_push+x>0)
+            x=x+x_push;
+        if(y_push+imageWidth+y<maxY && y_push+y>0)
+            y=y+y_push;
     }
 }

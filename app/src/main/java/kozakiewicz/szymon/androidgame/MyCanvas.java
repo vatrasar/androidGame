@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import kozakiewicz.szymon.androidgame.activity.GameActivity;
 import kozakiewicz.szymon.androidgame.objects.ObjectOnScreen;
 
 
@@ -26,8 +27,8 @@ public class MyCanvas extends View {
     ObjectOnScreen hunter;
     ObjectOnScreen target;
     List<ObjectOnScreen> results;
-
-
+    boolean isFirstRun;
+    GameActivity gameActivity;
 
 //    public MyCanvas(Context context) {
 //        super(context);
@@ -42,8 +43,13 @@ public class MyCanvas extends View {
         hunter=null;
         target=null;
         results=new ArrayList<>();
+        isFirstRun=true;
     }
 
+    public void setGameActivity(GameActivity gameActivity)
+    {
+        this.gameActivity=gameActivity;
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -61,15 +67,31 @@ public class MyCanvas extends View {
         canvas.drawText(currentScore+"", 10, 160, paint);
 
         //show objects
-        if (hunter==null)
-            return;
-        canvas.drawBitmap(hunter.image,hunter.x,hunter.y,paint);
-        canvas.drawBitmap(target.image,target.x,target.y,paint);
-        for(ObjectOnScreen result:results)
+        if(isFirstRun)
         {
-            canvas.drawBitmap(result.image,result.x,result.y,paint);
+            gameActivity.initGame();
+            isFirstRun=false;
+
+        }
+        else {
+            if (hunter == null)
+                return;
+            canvas.drawBitmap(hunter.image, hunter.x, hunter.y, paint);
+            canvas.drawBitmap(target.image, target.x, target.y, paint);
+            for (ObjectOnScreen result : results) {
+                canvas.drawBitmap(result.image, result.x, result.y, paint);
+            }
         }
 
+
+    }
+
+    public boolean isFirstRun() {
+        return isFirstRun;
+    }
+
+    public void setFirstRun(boolean firstRun) {
+        isFirstRun = firstRun;
     }
 
     public Paint getPaint() {
