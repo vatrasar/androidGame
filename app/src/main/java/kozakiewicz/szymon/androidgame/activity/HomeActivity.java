@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onHighScore(View view) {
 
 
-        
+
         Intent intent=new Intent(this,HighScoreActivity.class);
         
         startActivity(intent);

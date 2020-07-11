@@ -1,5 +1,7 @@
 package kozakiewicz.szymon.androidgame;
 
+import android.graphics.Bitmap;
+
 import java.sql.Blob;
 import java.util.Date;
 
@@ -8,9 +10,9 @@ public class Score
     String nickname;
     int score;
     Date dateTime;
-    Blob blob;
+    Bitmap blob;
 
-    public Score(String nickname, int score, Date dateTime, Blob blob) {
+    public Score(String nickname, int score, Date dateTime, Bitmap blob) {
         this.nickname = nickname;
         this.score = score;
         this.dateTime = dateTime;
@@ -41,11 +43,11 @@ public class Score
         this.dateTime = dateTime;
     }
 
-    public Blob getBlob() {
+    public Bitmap getBlob() {
         return blob;
     }
 
-    public void setBlob(Blob blob) {
+    public void setBlob(Bitmap blob) {
         this.blob = blob;
     }
 }

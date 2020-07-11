@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,9 +24,10 @@ import java.util.List;
 import kozakiewicz.szymon.androidgame.MyDataBaseHelper;
 import kozakiewicz.szymon.androidgame.R;
 import kozakiewicz.szymon.androidgame.Score;
+import kozakiewicz.szymon.androidgame.Utils;
 
 public class HighScoreActivity extends AppCompatActivity {
-    private ArrayAdapter<Score> adapter ;
+    private ScoreAdapter adapter ;
     MyDataBaseHelper databaseHelper;
     SQLiteDatabase database;
     @Override
@@ -36,6 +40,7 @@ public class HighScoreActivity extends AppCompatActivity {
 //        ArrayList<Score>scoresList=new ArrayList<>();
 //        scoresList.add(new Score("lipa",2, Calendar.getInstance().getTime(),null));
         adapter = new ScoreAdapter(this,databaseHelper.getResultsRows());
+
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -51,6 +56,8 @@ public class HighScoreActivity extends AppCompatActivity {
 
 class ScoreAdapter extends ArrayAdapter<Score>
 {
+
+
 
 
     public ScoreAdapter(@NonNull Context context, @NonNull List<Score> objects) {
@@ -69,10 +76,16 @@ class ScoreAdapter extends ArrayAdapter<Score>
 
         TextView tvNickname=(TextView)convertView.findViewById(R.id.txtNickname);
         TextView txtScore=(TextView)convertView.findViewById(R.id.txtScore);
+        TextView txtDate=(TextView)convertView.findViewById(R.id.txtDate);
+        ImageView image=(ImageView)convertView.findViewById(R.id.hunterImage);
         Score score=(Score)getItem(position);
 
         tvNickname.setText(score.getNickname());
         txtScore.setText(score.getScore()+"");
+        txtDate.setText(Utils.getDateFormatString(score.getDateTime()));
+
+        image.setImageBitmap(score.getBlob());
+
         return convertView;
     }
 

@@ -31,6 +31,20 @@
                 android:layout_weight="1"
                 android:text="dwa" />
 
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                tools:text="ryk" />
+
+            <ImageView
+                android:id="@+id/hunterImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
         </LinearLayout>
     </LinearLayout>
 

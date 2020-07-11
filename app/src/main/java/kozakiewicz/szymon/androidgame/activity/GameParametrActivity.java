@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -39,13 +40,15 @@ public class GameParametrActivity extends AppCompatActivity {
 
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
+
+
     }
     public int resolveImageId(String name)
     {
         switch (name)
         {
             case "girl":
-                return R.drawable.alicja_hunter;
+                return R.drawable.cel;
 
         }
         return -1;

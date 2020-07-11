@@ -62,7 +62,7 @@ public class Data implements Serializable {
 
     public int getHunterId()
     {
-        return R.drawable.alicja_hunter;
+        return hunterNameId;
     }
 
     public void setHunterName(int hunterName) {

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
@@ -39,6 +40,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+
 //        Toast.makeText(context,"tworzenie bazy",Toast.LENGTH_LONG).show();
         sqLiteDatabase.execSQL("CREATE TABLE "+TABLE_NAME+"(" +
                 _ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -55,6 +57,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
     }
     public void deleteDatabase()
     {
+
         context.deleteDatabase(DB_NAME);
     }
 
@@ -78,7 +81,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
         while (cursor.moveToNext())
         {
             try {
-                Score newScore=new Score(cursor.getString(1),cursor.getInt(2),dateFormat.parse(cursor.getString(3)),null);
+                Score newScore=new Score(cursor.getString(1),cursor.getInt(2),dateFormat.parse(cursor.getString(3)),BitmapFactory.decodeByteArray(cursor.getBlob(4),0,cursor.getBlob(4).length));
                 scoreList.add(newScore);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -93,6 +96,8 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
+
+
 
     private String getDateTimeString(Date date) {
 
