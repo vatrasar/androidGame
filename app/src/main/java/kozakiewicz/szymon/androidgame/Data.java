@@ -48,32 +48,30 @@ public class Data implements Serializable {
         this.dateTime = dateTime;
     }
 
-    public int getTargetName() {
+    public int getTargetId() {
         return targetNameId;
     }
 
-    public void setTargetName(int targetName) {
+    public void setTargetId(int targetName) {
         this.targetNameId = targetName;
     }
 
-    public int getHunterName() {
-        return hunterNameId;
-    }
+
 
     public int getHunterId()
     {
         return hunterNameId;
     }
 
-    public void setHunterName(int hunterName) {
+    public void setHunterId(int hunterName) {
         this.hunterNameId = hunterName;
     }
 
-    public int getResult() {
+    public int getResultId() {
         return resultId;
     }
 
-    public void setResult(int result) {
+    public void setResultId(int result) {
         this.resultId = result;
     }
 

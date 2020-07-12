@@ -2,5 +2,30 @@
 <resources>
     <string-array name="imagesForHunter">
         <item>girl</item>
+        <item>cat</item>
+        <item>dog</item>
+
     </string-array>
+
+    <string-array name="imagesForTarget">
+        <item>cat</item>
+        <item>girl</item>
+        <item>dog</item>
+
+    </string-array>
+
+    <string-array name="imagesForResult">
+
+        <item>blood</item>
+        <item>fire</item>
+    </string-array>
+
+    <string-array name="soundList">
+
+        <item>sound1</item>
+        <item>sound2</item>
+        <item>sound3</item>
+
+    </string-array>
+
 </resources>

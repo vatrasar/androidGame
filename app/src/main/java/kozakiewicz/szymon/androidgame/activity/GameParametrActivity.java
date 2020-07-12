@@ -33,6 +33,10 @@ public class GameParametrActivity extends AppCompatActivity {
 
         EditText txtNickName=(EditText) findViewById(R.id.txtNickName);
         Spinner spinHunter=(Spinner) findViewById(R.id.spinHunter);
+        Spinner spinTarget=(Spinner) findViewById(R.id.spinTarget);
+        Spinner spinResult=(Spinner) findViewById(R.id.spinResult);
+        Spinner spinSound=(Spinner) findViewById(R.id.spinSound);
+
         if(txtNickName.getText().toString().equals(""))
         {
             Toast.makeText(this,"Nickname have to have at least one character",Toast.LENGTH_LONG).show();
@@ -41,7 +45,7 @@ public class GameParametrActivity extends AppCompatActivity {
         }
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
-        Data data = new Data(txtNickName.getText().toString(),2,Calendar.getInstance().getTime(),-1,resolveImageId(spinHunter.getSelectedItem().toString()),-1,"");
+        Data data = new Data(txtNickName.getText().toString(),2,Calendar.getInstance().getTime(),resolveImageId(spinTarget.getSelectedItem().toString()),resolveImageId(spinHunter.getSelectedItem().toString()),resolveImageId(spinResult.getSelectedItem().toString()),spinSound.getSelectedItem().toString());
         bundle.putSerializable("data", data);
         returnIntent.putExtras(bundle);
 
@@ -57,6 +61,14 @@ public class GameParametrActivity extends AppCompatActivity {
         {
             case "girl":
                 return R.drawable.cel;
+            case "dog":
+                return R.drawable.dog;
+            case "fire":
+                return R.drawable.fire;
+            case "blood":
+                return R.drawable.blood;
+            case "cat":
+                return R.drawable.kotek;
 
         }
         return -1;

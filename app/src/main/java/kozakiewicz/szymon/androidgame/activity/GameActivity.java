@@ -12,6 +12,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
@@ -89,8 +91,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         int width = myCanvas.getWidth();
         int height = myCanvas.getHeight();
 
-        hunter=new ObjectOnScreen(random,width,height,resizeImage(R.drawable.cel), ObjectType.HUNTER,imageWidth,imageHeight);
-        target=new ObjectOnScreen(random,width,height,resizeImage(R.drawable.kotek), ObjectType.TARGET,imageWidth,imageHeight);
+        hunter=new ObjectOnScreen(random,width,height,resizeImage(settings.getHunterId()), ObjectType.HUNTER,imageWidth,imageHeight);
+        target=new ObjectOnScreen(random,width,height,resizeImage(settings.getTargetId()), ObjectType.TARGET,imageWidth,imageHeight);
         results=new ArrayList<>();
         rePaint();
 
@@ -124,15 +126,35 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         if(isColision(target,hunter))
         {
 
+
+            playSound(settings.getSound());
             int width = myCanvas.getWidth();
             int height = myCanvas.getHeight();
 
-            target.setImage(resizeImage(R.drawable.blood));
+            target.setImage(resizeImage(settings.getResultId()));
             target.setObjectType(ObjectType.Result);
             results.add(target);
             lastHitedResult=target;
             lastHitTime=Calendar.getInstance().getTime();
-            target=new ObjectOnScreen(random,width,height,resizeImage(R.drawable.kotek), ObjectType.TARGET,imageWidth,imageHeight);
+
+            //set new target
+            while (true) {
+                target = new ObjectOnScreen(random, width, height, resizeImage(settings.getTargetId()), ObjectType.TARGET, imageWidth, imageHeight);
+                //check whether is colision between new target and any result
+
+                boolean isColisionBetweenTargetAndResult=false;
+                for (ObjectOnScreen result : results) {
+                    if (isColision(result, target))
+                    {
+                        isColisionBetweenTargetAndResult=true;
+                    }
+                }
+                if(isColisionBetweenTargetAndResult)
+                    continue;
+                else
+                    break;
+            }
+
             score++;
             myCanvas.setCurrentScore(score);
 
@@ -167,5 +189,26 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             return false;
         }
     }
+    private void playSound(String soundName)
+    {
+        switch (soundName)
+        {
+            case "sound1":
+                ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP,150);
+                break;
+            case "sound2":
+                ToneGenerator toneGen2 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+                toneGen2.startTone(ToneGenerator.TONE_CDMA_HIGH_PBX_L,150);
+//                toneGen2.startTone(ToneGenerator.TONE_CDMA_PIP,150);
+                break;
+            case "sound3":
+                ToneGenerator toneGen3 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+                toneGen3.startTone(ToneGenerator.TONE_DTMF_0,150);
+//                toneGen2.startTone(ToneGenerator.TONE_CDMA_PIP,150);
+                break;
+        }
+    }
+
 }
 

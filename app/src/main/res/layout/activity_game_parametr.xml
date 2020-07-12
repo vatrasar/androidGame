@@ -49,9 +49,10 @@
                 android:text="target" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spinTarget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:entries="@array/imagesForTarget"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -89,9 +90,10 @@
                 android:text="result" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/spinResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:entries="@array/imagesForResult"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -108,9 +110,10 @@
                 android:text="sound" />
 
             <Spinner
-                android:id="@+id/spinner4"
+                android:id="@+id/spinSound"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:entries="@array/soundList"
                 android:layout_weight="1" />
         </LinearLayout>
 
