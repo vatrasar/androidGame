@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
 import kozakiewicz.szymon.androidgame.MyDataBaseHelper;
@@ -39,7 +40,21 @@ public class HighScoreActivity extends AppCompatActivity {
         ListView listView=findViewById(R.id.scoreListView);
 //        ArrayList<Score>scoresList=new ArrayList<>();
 //        scoresList.add(new Score("lipa",2, Calendar.getInstance().getTime(),null));
-        adapter = new ScoreAdapter(this,databaseHelper.getResultsRows());
+        List<Score>socresList=databaseHelper.getResultsRows();
+        socresList.sort(new Comparator<Score>() {
+            @Override
+            public int compare(Score y, Score x) {
+                if(x.getScore()>y.getScore())
+                {
+                    return 1;
+                }else if(x.getScore()==y.getScore())
+                    return 0;
+                else
+                    return -1;
+
+            }
+        });
+        adapter = new ScoreAdapter(this,socresList);
 
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game);
@@ -170,6 +171,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                 {
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("score",score);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("settings",settings);
+                    returnIntent.putExtras(bundle);
                     setResult(Activity.RESULT_OK,returnIntent);
                     finish();
                 }
