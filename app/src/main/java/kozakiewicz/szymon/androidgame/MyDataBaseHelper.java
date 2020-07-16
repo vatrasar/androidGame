@@ -78,6 +78,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper
         List<Score>scoreList=new ArrayList<>();
         Cursor cursor=database.rawQuery("SELECT * FROM "+TABLE_NAME,null);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        
         while (cursor.moveToNext())
         {
             try {
