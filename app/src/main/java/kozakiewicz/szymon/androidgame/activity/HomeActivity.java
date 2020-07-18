@@ -78,9 +78,10 @@ public class HomeActivity extends AppCompatActivity {
 
             TextView textInfo = (TextView) findViewById(R.id.txtInfo);
           int score=data.getIntExtra("score",-1);
-          textInfo.setText(score+"");
+
           Bundle bundle = data.getExtras();
           settings=(Data)bundle.getSerializable("settings");
+          textInfo.setText(settings.getNickname()+":"+score+"");
           databaseHelper.insertScore(settings,score,getImage(settings.getHunterId()));
         }
 
